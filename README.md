@@ -3,5 +3,5 @@
 
 # sample-fast-api
 
-A project to test a full async http request lifecycle with fastapi 
+A project to test a full async http request lifecycle with fastapi
 
