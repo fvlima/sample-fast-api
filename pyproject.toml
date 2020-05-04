@@ -1,0 +1,42 @@
+[tool.poetry]
+authors = [
+    "Frederico V Lima <frederico.vieira@gmail.com>"
+]
+name = "sample-fast-api"
+description = "sample-fast-api"
+license = "MIT"
+version = "0.1.0"
+
+[tool.black]
+line-length = 110
+
+[tool.isort]
+line_length = 110
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+known_localfolder = "app,apps,tests"
+sections = "FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
+default_section = "THIRDPARTY"
+
+[tool.poetry.dependencies]
+python = ">=3.8"
+aiopg = ">=1.0.0"
+databases = ">=0.3.2"
+fastapi = ">=0.54.1"
+email_validator = ">=1.1.0"
+prettyconf = ">=2.1.0"
+uvicorn = ">=0.11.5"
+
+[tool.poetry.dev-dependencies]
+black = { version = ">=19", allows-prereleases = true }
+pre-commit = ">=1.18"
+pytest = ">=5.2"
+pytest-asyncio = ">=0.12"
+pytest-cov = ">=2.8"
+python-status = ">=1.0"
+
+[build-system]
+requires = ["poetry>=1.0.0"]
+build-backend = "poetry.masonry.api"

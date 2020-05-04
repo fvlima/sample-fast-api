@@ -1,0 +1,15 @@
+{
+  "name": "User Name",
+  "email": "user1@email.com",
+  "password": "abc126",
+  "is_active": true,
+  "address": {
+    "city": "City",
+    "country": "Country",
+    "number": "9999",
+    "postal_code": "00000000",
+    "state": "ST",
+    "street": "Avenue"
+  },
+  "permissions": ["create", "update", "delete"]
+}
