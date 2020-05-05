@@ -1,4 +1,4 @@
-from app.pagination import Pagination
+from sample_fast_api.pagination import Pagination
 
 
 def test_string_conversion():

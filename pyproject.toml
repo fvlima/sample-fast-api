@@ -16,26 +16,30 @@ multi_line_output = 3
 include_trailing_comma = true
 force_grid_wrap = 0
 use_parentheses = true
-known_localfolder = "app,apps,tests"
+known_localfolder = "sample_fast_api,apps,tests"
+skip_glob = "migrations/*"
 sections = "FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
 default_section = "THIRDPARTY"
 
 [tool.poetry.dependencies]
-python = ">=3.8"
-aiopg = ">=1.0.0"
-databases = ">=0.3.2"
-fastapi = ">=0.54.1"
-email_validator = ">=1.1.0"
-prettyconf = ">=2.1.0"
-uvicorn = ">=0.11.5"
+python = "^3.8"
+aiopg = "^1.0.0"
+databases = "^0.3.2"
+fastapi = "^0.54.1"
+email_validator = "^1.1.0"
+prettyconf = "^2.1.0"
+uvicorn = "^0.11.5"
+gino = {extras = ["starlette"], version = "^1.0.0"}
+alembic = "^1.4.2"
 
 [tool.poetry.dev-dependencies]
-black = { version = ">=19", allows-prereleases = true }
-pre-commit = ">=1.18"
-pytest = ">=5.2"
-pytest-asyncio = ">=0.12"
-pytest-cov = ">=2.8"
-python-status = ">=1.0"
+black = { version = "^19", allow-prereleases = true }
+pre-commit = "^1.18"
+pytest = "^5.2"
+pytest-asyncio = "^0.12"
+pytest-cov = "^2.8"
+python-status = "i^1.0"
+requests = "^2.23.0"
 
 [build-system]
 requires = ["poetry>=1.0.0"]

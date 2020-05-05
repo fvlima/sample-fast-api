@@ -1,5 +1,6 @@
 language: python
 cache: pip
+services: postgresql
 
 matrix:
   include:
@@ -9,6 +10,9 @@ matrix:
 
 before_install:
   - pip install --upgrade pip
+
+before_script:
+  - psql -c "create database test_users_api;" -U postgres
 
 install:
   - pip install tox poetry

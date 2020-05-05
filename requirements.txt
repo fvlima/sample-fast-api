@@ -1,6 +1,0 @@
-fastapi
-email_validator
-databases
-asyncpg
-uvicorn
-prettyconf

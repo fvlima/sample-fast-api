@@ -3,7 +3,7 @@ import uuid
 import pytest
 from fastapi import HTTPException
 
-from app.authentication import Authentication
+from sample_fast_api.authentication import Authentication
 
 
 def test_valid_authentication():

@@ -1,7 +1,7 @@
 import pytest
 from pydantic import ValidationError
 
-from app.apps.users.schemas import Address, User, UserCreate
+from sample_fast_api.apps.users.schemas import Address, User, UserCreate
 
 
 def test_address_string_conversion(address_data):
