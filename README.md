@@ -14,7 +14,7 @@ A project to test a full async http request lifecycle with fastapi + gino + asyn
 ## how to run locally
 ```
 git clone https://github.com/fvlima/sample-fast-api.git
-pip insall poetry
+pip install poetry
 poetry install -v
 uvicorn sample_fast_api.main:app --reload
 ```
