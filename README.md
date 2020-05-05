@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/fvlima/sample-fast-api.svg?branch=master)](https://travis-ci.org/fvlima/sample-fast-api)
+[![codecov](https://codecov.io/gh/fvlima/sample-fast-api/branch/master/graph/badge.svg)](https://codecov.io/gh/fvlima/sample-fast-api)
 
 # sample-fast-api
 
@@ -7,7 +8,6 @@ A project to test a full async http request lifecycle with fastapi + gino + asyn
 ## next steps
 - improve insert and update operations with db
 - configurations to deal with postgres pool
-- create model tests factories
 - others...
 
 
