@@ -10,13 +10,29 @@ A project to test a full async http request lifecycle with fastapi + gino + asyn
 - configurations to deal with postgres pool
 - others...
 
+## setting up for local development
+
+We use [poetry](https://poetry.eustace.io/) to manage dependencies, so make sure you have it installed.
+Create database and set on [.env](https://github.com/fvlima/sample-fast-api/blob/master/default.env) file
+
+
+```
+cp default.env .env
+make install
+```
 
 ## how to run locally
+
+
 ```
-git clone https://github.com/fvlima/sample-fast-api.git
-pip install poetry
-poetry install -v
-uvicorn sample_fast_api.main:app --reload
+make run
+```
+
+## how to test
+
+create database test and set on [.env](https://github.com/fvlima/sample-fast-api/blob/master/default.env) file
+```
+make test
 ```
 
 ## some benchmarks
