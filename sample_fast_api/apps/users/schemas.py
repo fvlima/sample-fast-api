@@ -1,10 +1,8 @@
-import binascii
-import hashlib
-import os
 import typing
 from uuid import UUID
 
 from pydantic import BaseModel, EmailStr, Field
+from sample_fast_api.authentication import pwd_context
 
 
 class Address(BaseModel):
@@ -59,8 +57,4 @@ class UserCreate(User):
         if not self.password or len(self.password) > 16:
             return
 
-        salt = hashlib.sha256(os.urandom(60)).hexdigest().encode()
-        pwd_hash = hashlib.pbkdf2_hmac("sha512", self.password.encode(), salt, 100000)
-        pwd_hex = binascii.hexlify(pwd_hash)
-
-        return salt.decode() + pwd_hex.decode()
+        return pwd_context.hash(self.password)

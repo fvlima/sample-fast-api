@@ -31,6 +31,8 @@ prettyconf = "^2.1.0"
 uvicorn = "^0.11.5"
 gino = {extras = ["starlette"], version = "^1.0.0"}
 alembic = "^1.4.2"
+python-jose = {extras = ["cryptography"], version = "^3.2.0"}
+passlib = {extras = ["bcrypt"], version = "^1.7.2"}
 
 [tool.poetry.dev-dependencies]
 black = { version = "^19", allow-prereleases = true }

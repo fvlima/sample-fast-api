@@ -1,6 +1,9 @@
 from uuid import UUID
 
 from fastapi import Header, HTTPException, status
+from passlib.context import CryptContext
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 class Authentication:
