@@ -1,7 +1,7 @@
 import pytest
 from pydantic import ValidationError
 
-from sample_fast_api.apps.users.schemas import Address, User, UserCreate
+from sample_fast_api.apps.users.schemas import Address, User, UserCreate, pwd_context
 
 
 def test_address_string_conversion(address_data):
@@ -84,6 +84,18 @@ def test_user_hash_password(user_data):
     user = UserCreate(**user_data)
 
     assert user.hash_password()
+
+
+def test_user_verify_password(user_data):
+    user = UserCreate(**user_data)
+
+    assert user.verify_password(user.hash_password())
+
+
+def test_user_verify_password_invalid(user_data):
+    user = UserCreate(**user_data)
+    ramdon_hash = pwd_context.hash("topdezventiladoresfodas")
+    assert user.verify_password(ramdon_hash) is False
 
 
 def test_user_hash_password_already_hashed(user_data):

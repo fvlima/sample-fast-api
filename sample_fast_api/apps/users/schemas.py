@@ -2,7 +2,9 @@ import typing
 from uuid import UUID
 
 from pydantic import BaseModel, EmailStr, Field
-from sample_fast_api.authentication import pwd_context
+from passlib.context import CryptContext
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 class Address(BaseModel):
@@ -52,6 +54,9 @@ class UserCreate(User):
     password: str = Field(
         None, min_length=6, max_length=16, description="A text value with length between 6 and 16 characters"
     )
+
+    def verify_password(self, hashed_password):
+        return pwd_context.verify(self.password, hashed_password)
 
     def hash_password(self):
         if not self.password or len(self.password) > 16:
