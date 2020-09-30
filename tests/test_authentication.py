@@ -27,7 +27,7 @@ def test_invalid_authentication():
 
 @pytest.mark.asyncio
 @patch("sample_fast_api.authentication.jwt.encode")
-async def test_token(mock_encode, client):
+async def test_token_creation(mock_encode, client):
     mock_encode.return_value = "mock_hash"
     password_hash = pwd_context.hash("abc123")
     new_user = await UserFactory().create(name="username", password=password_hash)
