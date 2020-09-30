@@ -55,9 +55,6 @@ class UserCreate(User):
         None, min_length=6, max_length=16, description="A text value with length between 6 and 16 characters"
     )
 
-    def verify_password(self, hashed_password):
-        return pwd_context.verify(self.password, hashed_password)
-
     def hash_password(self):
         if not self.password or len(self.password) > 16:
             return
