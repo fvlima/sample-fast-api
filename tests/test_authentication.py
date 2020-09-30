@@ -1,12 +1,13 @@
 import uuid
 from collections import namedtuple
-from fastapi import HTTPException
+
+from unittest.mock import patch
 import nest_asyncio
 import pytest
 from fastapi import HTTPException
 
 from sample_fast_api.apps.users.schemas import pwd_context
-from sample_fast_api.authentication import Authentication, authenticate_user
+from sample_fast_api.authentication import Authentication, Token, authenticate_user
 from tests.apps.users.factories import UserFactory
 
 nest_asyncio.apply()
@@ -22,6 +23,16 @@ def test_valid_authentication():
 def test_invalid_authentication():
     with pytest.raises(HTTPException):
         Authentication("token")
+
+
+@pytest.mark.asyncio
+@patch("sample_fast_api.authentication.jwt.encode")
+async def test_token(mock_encode, client):
+    mock_encode.return_value = "mock_hash"
+    password_hash = pwd_context.hash("abc123")
+    new_user = await UserFactory().create(name="username", password=password_hash)
+    token = Token(new_user)
+    assert token.create() == {"access_token": "mock_hash", "token_type": "bearer"}
 
 
 @pytest.mark.asyncio
