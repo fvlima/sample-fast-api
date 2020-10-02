@@ -1,7 +1,7 @@
 import pytest
 from fastapi import status
 
-from sample_fast_api.users.schemas import pwd_context
+from sample_fast_api.apps.users.schemas import pwd_context
 from tests.apps.users.factories import UserFactory
 
 

@@ -1,32 +1,33 @@
-import uuid
 from collections import namedtuple
 
 from unittest.mock import patch
 import nest_asyncio
 import pytest
 from fastapi import HTTPException
+from jose import jwt
 
+from sample_fast_api.config import settings
 from sample_fast_api.apps.users.schemas import pwd_context
-from sample_fast_api.authentication import Authentication, Token, authenticate_user
+from sample_fast_api.apps.auth.authentication import Token, authenticate_user, validate_token
 from tests.apps.users.factories import UserFactory
 
 nest_asyncio.apply()
 
 
-def test_valid_authentication():
-    token = f"Token {uuid.uuid4()}"
-    auth = Authentication(token)
-
-    assert auth
+def test_validate_token():
+    encoded_jwt = jwt.encode({"sub": "username"}, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+    assert validate_token(encoded_jwt) is None
 
 
-def test_invalid_authentication():
-    with pytest.raises(HTTPException):
-        Authentication("token")
+def test_invalid_token():
+    encoded_jwt = jwt.encode({"sub": "username"}, "invalid_secret_key", algorithm=settings.ALGORITHM)
+    with pytest.raises(HTTPException) as exinfo:
+        assert validate_token(encoded_jwt) is None
+    assert exinfo.value.detail == "Could not validate credentials"
 
 
 @pytest.mark.asyncio
-@patch("sample_fast_api.authentication.jwt.encode")
+@patch("sample_fast_api.apps.auth.authentication.jwt.encode")
 async def test_token_creation(mock_encode, client):
     mock_encode.return_value = "mock_hash"
     password_hash = pwd_context.hash("abc123")
