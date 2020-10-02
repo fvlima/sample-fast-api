@@ -1,14 +1,14 @@
 from collections import namedtuple
-
 from unittest.mock import patch
+
 import nest_asyncio
 import pytest
 from fastapi import HTTPException
 from jose import jwt
 
-from sample_fast_api.config import settings
-from sample_fast_api.apps.users.schemas import pwd_context
 from sample_fast_api.apps.auth.authentication import Token, authenticate_user, validate_token
+from sample_fast_api.apps.users.schemas import pwd_context
+from sample_fast_api.config import settings
 from tests.apps.users.factories import UserFactory
 
 nest_asyncio.apply()

@@ -1,8 +1,8 @@
 import typing
 from uuid import UUID
 
-from pydantic import BaseModel, EmailStr, Field
 from passlib.context import CryptContext
+from pydantic import BaseModel, EmailStr, Field
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

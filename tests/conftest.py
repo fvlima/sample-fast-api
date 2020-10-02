@@ -1,9 +1,9 @@
 import pytest
 from alembic.config import main
 from fastapi.testclient import TestClient
+from jose import jwt
 
 from sample_fast_api.config import settings
-from jose import jwt
 from sample_fast_api.main import db, get_app
 
 settings.TEST_ENV = True

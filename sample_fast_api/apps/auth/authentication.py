@@ -9,7 +9,7 @@ from sample_fast_api.apps.users.models import User
 from sample_fast_api.apps.users.schemas import pwd_context
 from sample_fast_api.config import settings
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl=settings.TOKEN_URL)
 
 
 def validate_token(token: str = Depends(oauth2_scheme)):
