@@ -133,7 +133,7 @@ async def test_search_with_pagination_limit_offset(client, user_data):
 
 
 def test_search_without_results(client):
-    response = client.get(f"/users/?name=Some Name")
+    response = client.get("/users/?name=Some Name")
 
     assert response.status_code == status.HTTP_200_OK
 
