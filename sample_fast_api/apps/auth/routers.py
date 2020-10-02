@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 
-from sample_fast_api.authentication import Token, authenticate_user
+from .authentication import Token, authenticate_user
 
 router = APIRouter()
 

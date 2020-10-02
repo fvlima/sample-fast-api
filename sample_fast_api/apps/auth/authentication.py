@@ -1,21 +1,30 @@
+from datetime import datetime, timedelta
 from typing import Optional
-from datetime import timedelta, datetime
-from uuid import UUID
+
+from fastapi import Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
-from fastapi.security import OAuth2PasswordRequestForm
-from fastapi import Header, HTTPException, status
+
 from sample_fast_api.apps.users.models import User
 from sample_fast_api.apps.users.schemas import pwd_context
 from sample_fast_api.config import settings
 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-class Authentication:
-    def __init__(self, authorization: str = Header("")):
-        token = authorization[6:]
-        try:
-            UUID(token)
-        except ValueError:
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not Authorized")
+
+def validate_token(token: str = Depends(oauth2_scheme)):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+        email: str = payload.get("sub")
+        if email is None:
+            raise credentials_exception
+    except JWTError:
+        raise credentials_exception
 
 
 async def authenticate_user(form_data):
