@@ -4,8 +4,8 @@ services: postgresql
 
 matrix:
   include:
-    - python: 3.8
-      dist: xenial
+    - python: 3.8.5
+      dist: bionic
       env: TOX_ENV="py38,lint"
 
 before_install:
