@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from .models import Address as AddressModel
 from .models import User as UserModel
 from .schemas import User, UserCreate
-from sample_fast_api.authentication import Authentication
+from sample_fast_api.apps.auth.authentication import validate_token
 from sample_fast_api.main import db
 from sample_fast_api.pagination import Pagination
 
@@ -17,7 +17,7 @@ router = APIRouter()
     "/users/",
     description="Endpoint to search users",
     response_model=typing.List[User],
-    dependencies=[Depends(Authentication)],
+    dependencies=[Depends(validate_token)],
 )
 async def users_search(p: Pagination = Depends()):
     query = UserModel.join(AddressModel).select().where(UserModel.name == p.q).limit(p.limit).offset(p.offset)
@@ -30,7 +30,7 @@ async def users_search(p: Pagination = Depends()):
     "/users/{user_id}",
     description="Endpoint to fetch user",
     response_model=User,
-    dependencies=[Depends(Authentication)],
+    dependencies=[Depends(validate_token)],
 )
 async def users_get(user_id: UUID):
     query = UserModel.join(AddressModel).select().where(UserModel.id == user_id)
@@ -44,7 +44,7 @@ async def users_get(user_id: UUID):
 
 @router.post(
     "/users/",
-    dependencies=[Depends(Authentication)],
+    dependencies=[Depends(validate_token)],
     status_code=status.HTTP_201_CREATED,
     response_model=User,
 )
@@ -73,7 +73,7 @@ async def users_create(user: UserCreate):
         return user
 
 
-@router.put("/users/{user_id}", dependencies=[Depends(Authentication)], response_model=User)
+@router.put("/users/{user_id}", dependencies=[Depends(validate_token)], response_model=User)
 async def users_update(user_id: UUID, user: User):
     async with db.transaction():
         user_ = await UserModel.get_or_404(user_id)
@@ -98,7 +98,7 @@ async def users_update(user_id: UUID, user: User):
 
 
 @router.delete(
-    "/users/{user_id}", status_code=status.HTTP_204_NO_CONTENT, dependencies=[Depends(Authentication)]
+    "/users/{user_id}", status_code=status.HTTP_204_NO_CONTENT, dependencies=[Depends(validate_token)]
 )
 async def users_delete(user_id: UUID):
     async with db.transaction():
