@@ -23,8 +23,6 @@ default_section = "THIRDPARTY"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-aiopg = "^1.0.0"
-databases = "^0.3.2"
 fastapi = "^0.54.1"
 email_validator = "^1.1.0"
 prettyconf = "^2.1.0"
@@ -34,6 +32,7 @@ alembic = "^1.4.2"
 python-jose = {extras = ["cryptography"], version = "^3.2.0"}
 passlib = {extras = ["bcrypt"], version = "^1.7.2"}
 python-multipart = "^0.0.5"
+psycopg2 = "^2.8.6"
 
 [tool.poetry.dev-dependencies]
 black = { version = "^19", allow-prereleases = true }
