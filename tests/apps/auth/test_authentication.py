@@ -25,6 +25,7 @@ def test_invalid_token_without_email():
         assert validate_token(encoded_jwt) is None
     assert exinfo.value.detail == "Could not validate credentials"
 
+
 def test_invalid_token():
     encoded_jwt = jwt.encode({"sub": "email"}, "invalid_secret_key", algorithm=settings.ALGORITHM)
     with pytest.raises(HTTPException) as exinfo:
