@@ -15,12 +15,18 @@ nest_asyncio.apply()
 
 
 def test_validate_token():
-    encoded_jwt = jwt.encode({"sub": "username"}, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+    encoded_jwt = jwt.encode({"sub": "email"}, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
     assert validate_token(encoded_jwt) is None
 
 
+def test_invalid_token_without_email():
+    encoded_jwt = jwt.encode({"otherkey": "email"}, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+    with pytest.raises(HTTPException) as exinfo:
+        assert validate_token(encoded_jwt) is None
+    assert exinfo.value.detail == "Could not validate credentials"
+
 def test_invalid_token():
-    encoded_jwt = jwt.encode({"sub": "username"}, "invalid_secret_key", algorithm=settings.ALGORITHM)
+    encoded_jwt = jwt.encode({"sub": "email"}, "invalid_secret_key", algorithm=settings.ALGORITHM)
     with pytest.raises(HTTPException) as exinfo:
         assert validate_token(encoded_jwt) is None
     assert exinfo.value.detail == "Could not validate credentials"
